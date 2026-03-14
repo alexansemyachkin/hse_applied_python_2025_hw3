@@ -22,6 +22,10 @@ def redirect(short_code: str, db: Session = Depends(get_db)):
     cached = cache.get_cached_link(short_code)
 
     if cached:
+        link = crud.get_link(db, short_code)
+        if link:
+            crud.increment_click(db, link)
+
         return RedirectResponse(cached)
 
     link = crud.get_link(db, short_code)
