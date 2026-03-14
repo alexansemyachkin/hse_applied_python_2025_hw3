@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
@@ -11,7 +11,11 @@ router = APIRouter(prefix="/links")
 
 
 @router.post("/shorten", response_model=schemas.LinkResponse)
-def shorten_link(data: schemas.LinkCreate, db: Session = Depends(get_db)):
+def shorten_link(
+    data: schemas.LinkCreate,
+    request: Request,
+    db: Session = Depends(get_db)
+):
 
     try:
         link = crud.create_link(
@@ -23,7 +27,9 @@ def shorten_link(data: schemas.LinkCreate, db: Session = Depends(get_db)):
     except ValueError:
         raise HTTPException(status_code=400, detail="alias exists")
 
-    return {"short_url": f"http://localhost:8000/{link.short_code}"}
+    base_url = str(request.base_url).rstrip("/")
+
+    return {"short_url": f"{base_url}/{link.short_code}"}
 
 
 @router.get("/{short_code}/stats", response_model=schemas.LinkStats)
