@@ -1,11 +1,8 @@
+import os
 import redis
 
-r = redis.Redis(
-    host="redis",
-    port=6379,
-    decode_responses=True
-)
 
+r = redis.from_url(os.getenv("REDIS_URL"))
 
 def get_cached_link(code):
 

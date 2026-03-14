@@ -208,4 +208,8 @@ http://localhost:8000/docs
 
 Главное: проект развернут на Render!
 
+```
+https://url-shortener-api.onrender.com
+```
+
 ---
