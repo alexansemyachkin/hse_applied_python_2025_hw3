@@ -214,10 +214,12 @@ https://shortener-api-8081.onrender.com/docs
 
 ---
 
-## Запуск тестов
+# Запуск тестов
 
 ```bash
 coverage run -m pytest
 coverage report
 coverage html
 ```
+
+Отчет по покрытию тестами лежит в report.html
