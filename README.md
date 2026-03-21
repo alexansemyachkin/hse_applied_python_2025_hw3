@@ -213,3 +213,11 @@ https://shortener-api-8081.onrender.com/docs
 ```
 
 ---
+
+## Запуск тестов
+
+```bash
+coverage run -m pytest
+coverage report
+coverage html
+```
